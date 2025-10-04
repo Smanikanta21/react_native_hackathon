@@ -8,5 +8,17 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "@prisma/client": "^6.16.3",
+    "expo": "^54.0.12",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.1",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.16.3",
+    "react-native": "^0.81.4",
+    "react-native-web": "^0.21.1",
+    "styled-components": "^6.1.19"
+  }
 }
