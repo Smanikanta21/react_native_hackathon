@@ -1,37 +1,45 @@
-
 'use client'
 import React, { useState } from "react";
-import { LogIn, Lock, Mail ,User} from "lucide-react";
-import { FaGoogle ,FaFacebook,FaApple} from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
+import { LogIn, Lock, Mail } from "lucide-react";
+import { FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
+import { loginUser } from "@/lib/authApi";
 
 function Login() {
-
-  
-
-  const [[password], setPassword] = useState("");
+  const router = useRouter();
+  const [password, setPassword] = useState("");
   const [identification, setIndentification] = useState("");
   const [error, setError] = useState("");
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const handleSignIn = () => {
-    if (!email || !password) {
+  const handleSignIn = async () => {
+    if (!identification || !password) {
       setError("Please enter both email and password.");
+      toast.error("Please enter both email and password."); // toast for missing fields
       return;
     }
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
+  
     setError("");
-    alert("Sign in successful! (Demo)");
+    try {
+      const response = await loginUser({ email: identification, password });
+      if (response.success) {
+        toast.success("Sign in successful!");
+        setTimeout(() => router.push('/playground'), 1000);
+      } else {
+        setError(response.message || "Sign in failed.");
+        toast.error(response.message || "Sign in failed."); // toast for failed login
+      }
+    } catch (err) {
+      toast.error("An error occurred during sign in."); // toast for server/network errors
+      console.error(err);
+    }
   };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-white rounded-xl z-1">
-      <div className="w-full max-w-sm   rounded-3xl shadow-xl  p-8 flex flex-col items-center border  text-black">
+      <div className="w-full max-w-sm rounded-3xl shadow-xl p-8 flex flex-col items-center border text-black">
         <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white mb-6 ">
           <LogIn className="w-7 h-7 text-black" />
         </div>
@@ -59,25 +67,18 @@ function Login() {
             <input
               placeholder="Password"
               type="password"
-              value={password}
               className="w-full pl-10 pr-10 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-black text-sm"
               onChange={(e) => setPassword(e.target.value)}
             />
-
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer text-xs select-none"></span>
           </div>
           <div className="w-full flex justify-end">
-            {error && (
-              <div className="text-sm text-red-500 text-left">{error}</div>
-            )}
-            <button className="text-xs hover:underline font-medium">
-              Forgot password?
-            </button>
+            {error && <div className="text-sm text-red-500 text-left">{error}</div>}
+            <button className="text-xs hover:underline font-medium">Forgot password?</button>
           </div>
         </div>
 
         <div>
-          <a href="/signup" className="text-xs hover:underline font-medium">Don't have an account</a>
+          <a href="/signup" className="text-xs hover:underline font-medium">Don{"'"}t have an account</a>
         </div>
 
         <button
@@ -106,6 +107,4 @@ function Login() {
   );
 };
 
-
-
-export default Login
+export default Login;

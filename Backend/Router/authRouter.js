@@ -3,7 +3,7 @@ const router = express.Router();
 const { signup, login } = require('../Auth/authConfig');
 
 // POST /auth/signin
-router.post('/signin', signup);
+router.post('/signup', signup);
 
 // POST /auth/login
 router.post('/login', login);
