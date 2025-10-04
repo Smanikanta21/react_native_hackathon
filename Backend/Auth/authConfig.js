@@ -42,8 +42,8 @@ async function login(req, res) {
     const token = jwt.sign({ email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '7h' });
     return res
     .status(200)
+    .cookie("token" , token)
     .json({ message: 'Login successful' })
-    .cookie("token" , token);
   } catch (err) {
     return res.status(500).json({ message: 'Server error', error: err.message });
   }
