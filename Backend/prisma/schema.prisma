@@ -15,12 +15,19 @@ model User {
   password    String
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-  playGrounds PlayGround[]
+  playGrounds Playground[]
 }
 
-model PlayGround {
-  id        String @id @default(uuid())
-  name      String @default("PlayGround")
-  createdBy String
-  user      User   @relation(fields: [createdBy], references: [id])
+model Playground {
+  id           String   @id @default(uuid())
+  userId       String
+  title        String
+  description  String?
+  files        Json
+  dependencies Json
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
