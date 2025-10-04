@@ -77,7 +77,7 @@ function Login() {
         </div>
 
         <div>
-          <a href="/signup" className="text-xs hover:underline font-medium">Don't have an account</a>
+          <a href="/signup" className="text-xs hover:underline font-medium">Don{"'"}t have an account</a>
         </div>
 
         <button
