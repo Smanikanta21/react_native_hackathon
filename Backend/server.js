@@ -4,9 +4,8 @@ const cookieParser = require('cookie-parser')
 const authRouter = require('./Router/authRouter');
 const { authMiddleware } = require('./middleware/authMiddleware')
 const cors = require('cors')
-
+app.use(cors());
 app.use(express.json());
-app.use(cors())
 app.use(cookieParser())
 
 
