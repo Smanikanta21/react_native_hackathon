@@ -18,24 +18,24 @@ function Signup() {
   const handleSignUp = async () => {
     if (!name || !email || !password) {
       setError("Please enter all fields.");
-      alert.error("Please enter all fields.");
+      alert("Please enter all fields.");
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
-      alert.error("Please enter a valid email address.");
+      alert("Please enter a valid email address.");
       return;
     }
 
     setError("");
     try {
       const response = await signupUser({ name, email, password });
-      alert.success(response.message || "Signup successful!");
+      alert(response.message || "Signup successful!");
       setTimeout(() => router.push("/playground"), 1000);
     } catch (err) {
       const msg = err.response?.data?.message || "Signup failed";
-      alert.error(msg);
+      alert(msg);
       console.error(err);
     }
   };

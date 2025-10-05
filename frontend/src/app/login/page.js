@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-// import toast, { Toaster } from 'react-hot-toast';
 import { LogIn, Lock, Mail } from "lucide-react";
 import { FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
 import { loginUser } from "@/lib/authApi";
@@ -17,7 +16,7 @@ function Login() {
   const handleSignIn = async () => {
     if (!identification || !password) {
       setError("Please enter both email and password.");
-      alert.error("Please enter both email and password."); // toast for missing fields
+      alert("Please enter both email and password.");
       return;
     }
   
@@ -25,14 +24,14 @@ function Login() {
     try {
       const response = await loginUser({ email: identification, password });
       if (response.success) {
-        alert.success("Sign in successful!");
+        alert("Sign in successful!");
         setTimeout(() => router.push('/playground'), 1000);
       } else {
         setError(response.message || "Sign in failed.");
-        alert.error(response.message || "Sign in failed."); // toast for failed login
+        alert(response.message || "Sign in failed.");
       }
     } catch (err) {
-      alert.error("An error occurred during sign in."); // toast for server/network errors
+      alert("An error occurred during sign in.");
       console.error(err);
     }
   };
