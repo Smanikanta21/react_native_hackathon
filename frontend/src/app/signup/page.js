@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { LogIn, Lock, Mail, User } from "lucide-react";
 import { FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
 import { signupUser } from "@/lib/authApi";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 function Signup() {
@@ -18,24 +18,24 @@ function Signup() {
   const handleSignUp = async () => {
     if (!name || !email || !password) {
       setError("Please enter all fields.");
-      toast.error("Please enter all fields.");
+      alert.error("Please enter all fields.");
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
-      toast.error("Please enter a valid email address.");
+      alert.error("Please enter a valid email address.");
       return;
     }
 
     setError("");
     try {
       const response = await signupUser({ name, email, password });
-      toast.success(response.message || "Signup successful!");
+      alert.success(response.message || "Signup successful!");
       setTimeout(() => router.push("/playground"), 1000);
     } catch (err) {
       const msg = err.response?.data?.message || "Signup failed";
-      toast.error(msg);
+      alert.error(msg);
       console.error(err);
     }
   };
