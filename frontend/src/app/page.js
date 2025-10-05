@@ -1,5 +1,4 @@
 "use client";
-// import Footer from "@/component/footer";
 import Navbar from "@/app/component/navbar";
 import React from "react";
 import { Code2, Zap, Smartphone, MoveRight } from "lucide-react";
@@ -13,13 +12,13 @@ function LandingPage() {
     <>
       <div className="fixed top-0">
         <Navbar />
-        <Aurora
+      </div>
+              <Aurora
           colorStops={["#7CFF67", "#7CFF67", "#5227FF"]}
           blend={0.5}
           amplitude={1.0}
           speed={0.8}
         />
-      </div>
       <main>
         <div className="flex flex-col items-center justify-center h-screen text-center max-w-3xl mx-auto space-y-8">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary/10 mb-4">
